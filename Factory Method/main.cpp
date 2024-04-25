@@ -7,6 +7,7 @@
 class Animal
 {
 public:
+  virtual ~Animal() {};
   virtual void says() = 0;
 };
 
@@ -17,7 +18,7 @@ public:
   {
     Dog::count++;
   }
-  ~Dog()
+  ~Dog() override
   {
     Dog::count--;
   }
@@ -41,7 +42,7 @@ public:
   {
     Cat::count++;
   }
-  ~Cat()
+  ~Cat() override
   {
     Cat::count--;
   }
@@ -61,6 +62,7 @@ protected:
 class AnimalFactory
 {
 public:
+  virtual ~AnimalFactory() {};
   virtual std::unique_ptr<Animal> createAnimal() = 0;
 };
 
@@ -121,21 +123,23 @@ public:
 int main()
 {
   std::vector<std::string> AvailableAnimals = {"Dog", "Cat"};
+  std::vector<std::unique_ptr<Animal>> current_animals;
 
   std::unique_ptr<AnimalFactory> factory = std::make_unique<BalancedFactory>(AvailableAnimals);
   for (int i = 0; i < 10; i++)
   {
-    std::unique_ptr<Animal> animal = factory->createAnimal();
+    current_animals.push_back(factory->createAnimal());
   }
   std::cout << "Dogs: " << Dog::getCount() << std::endl; // 5
   std::cout << "Cats: " << Cat::getCount() << std::endl; // 5
 
+  current_animals.clear();
   factory = std::make_unique<RandomFactory>();
   for (int i = 0; i < 10; i++)
   {
-    std::unique_ptr<Animal> animal = factory->createAnimal();
+    current_animals.push_back(factory->createAnimal());
   }
 
-  std::cout << "Dogs: " << Dog::getCount() << std::endl; // random amount based on the random factory logic
-  std::cout << "Cats: " << Cat::getCount() << std::endl; // random amount based on the random factory logic
+  std::cout << "Dogs: " << Dog::getCount() << std::endl; // random amount from random factory logic
+  std::cout << "Cats: " << Cat::getCount() << std::endl; // random amount from random factory logic
 }

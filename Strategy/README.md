@@ -1,4 +1,4 @@
-# Factory Method 
+# Strategy Pattern 
 
 Strategy pattern example implementation based on [video tutorial](https://www.youtube.com/watch?v=v9ejT8FO-7I) with an implementation of the example explained in the video. 
 

@@ -7,8 +7,11 @@
 class Singleton
 {
 public:
-    std::string someLogic();
+    Singleton(Singleton &other) = delete;
+    void operator=(const Singleton &) = delete;
+
     static Singleton *getInstance();
+    std::string someLogic();
 
 private:
     Singleton();

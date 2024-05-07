@@ -1,6 +1,6 @@
 # Facade Pattern 
 
-Command pattern example based on [video](https://www.youtube.com/watch?v=9qA5kw8dcSU).
+Command pattern example.
 
 ## Description
 Facade pattern provides a simplified (but limited) interface to a complex system of classes, library or framework. 
